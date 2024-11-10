@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Plan Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #EAF5F6; 
+            color: #333;
+        }
+
+        header {
+            background-color: #8E3256;  
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #8E3256; 
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #581d34; 
+        }
+
+        .plan {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f9f9f9; 
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .plan h2 {
+            margin-top: 0;
+            font-size: 1.8em;
+            color:#581d34; 
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: #EAF5F6;  /* Light pink */
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .error {
+            color: #e74c3c;  /* Red for error messages */
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="src/logo2.JPG">
+        <h1>GROW UP</h1>
+        <h2>AI Learning Plan Generator</h1>
+    </header>
+
+    <div class="container">
+        <form method="POST">
+            <label for="goal">Goal:</label>
+            <input type="text" id="goal" name="goal" required placeholder="e.g., Python programming">
+
+            <label for="duration">Duration (months):</label>
+            <input type="number" id="duration" name="duration" required min="1" placeholder="e.g., 3">
+
+            <button type="submit">Generate Plan</button>
+        </form>
+
+        {% if plan_lines %}
+            <div class="plan">
+                <h2>Learning Plan to Achieve "{{ goal }}" in {{ duration }} months:</h2>
+                    {% for i in range(0,plan_lines|length) %}
+                        
+                        {{ plan_lines[i] }}
+                        <br/>
+                        
+                    {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
